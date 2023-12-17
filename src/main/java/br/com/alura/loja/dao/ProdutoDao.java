@@ -20,4 +20,9 @@ public class ProdutoDao {
 		this.entityManager.merge(produto);
 	}
 
+	public void remover(Produto produto) {
+		produto = this.entityManager.merge(produto);
+		this.entityManager.remove(produto);
+	}
+
 }
