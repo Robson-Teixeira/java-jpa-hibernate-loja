@@ -6,7 +6,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import br.com.alura.loja.dao.ProdutoDao;
 import br.com.alura.loja.modelo.Produto;
+import br.com.alura.loja.util.JPAUtil;
 
 public class CadastroProduto {
 
@@ -20,12 +22,12 @@ public class CadastroProduto {
 				+ "câmera traseira de 50 megapixels. Com apenas 8.9 milímetros de espessura.");
 		celular.setPreco(new BigDecimal("800"));
 
-		EntityManagerFactory entityManagerFactory = 
-				Persistence.createEntityManagerFactory("java-jpa-hibernate-loja");
+		EntityManager entityManager = JPAUtil.getEntityManager();
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		ProdutoDao produtoDao = new ProdutoDao(entityManager);
+
 		entityManager.getTransaction().begin();
-		entityManager.persist(celular);
+		produtoDao.cadastrar(celular);
 		entityManager.getTransaction().commit();
 		entityManager.close();
 
