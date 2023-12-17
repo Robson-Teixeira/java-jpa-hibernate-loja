@@ -13,6 +13,12 @@
 		outras tecnologias 
 		do Java EE, e o servidor se encarrega de cuidar da transação. 
 	-->
+		
+		<!-- <class>br.com.alura.modelo.Produto</class> -->
+		<!-- 
+			Com o Hibernate não é preciso mapear as classes,
+			mas caso o faça, precisa mapear todas as elas
+		-->
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:loja" />
