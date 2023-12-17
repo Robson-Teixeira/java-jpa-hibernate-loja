@@ -16,4 +16,8 @@ public class ProdutoDao {
 		this.entityManager.persist(produto);
 	}
 
+	public void atualizar(Produto produto) {
+		this.entityManager.merge(produto);
+	}
+
 }

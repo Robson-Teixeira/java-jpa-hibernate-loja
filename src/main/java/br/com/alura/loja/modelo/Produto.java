@@ -25,6 +25,10 @@ public class Produto {
 	@ManyToOne // Muitos pra 1 - Muitos produtos para 1 categoria
 	private Categoria categoria;
 
+	public Produto() {
+		// Necessário para utilizar o merge do EntityManager
+	}
+	
 	public Produto(String nome, String descricao, BigDecimal preco, Categoria categoria) {
 		super();
 		this.nome = nome;
