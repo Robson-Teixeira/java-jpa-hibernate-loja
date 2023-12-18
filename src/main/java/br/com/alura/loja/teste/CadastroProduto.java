@@ -20,6 +20,10 @@ public class CadastroProduto {
 		buscarProdutoPorId();
 		
 		buscarProdutos();
+		
+		buscarPorNome();
+		
+		buscarPorNomeCategoria();
 
 	}
 
@@ -46,35 +50,65 @@ public class CadastroProduto {
 		entityManager.close();
 		
 	}
-	
+
 	private static void buscarProdutos() {
-		
+
 		EntityManager entityManager = JPAUtil.getEntityManager();
 		ProdutoDao produtoDao = new ProdutoDao(entityManager);
-		
+
+		System.out.println("buscarTodos");
+
 		List<Produto> produtos = produtoDao.buscarTodos();
-		produtos.forEach(produto -> System.out.println("Id: " + produto.getId() + 
-				" | Nome: " + produto.getNome() + 
-				" | Descrição: " + produto.getDescricao() + 
-				" | Preço: " + produto.getPreco() + 
-				" | Data Cadastro: " + produto.getDataCadastro() + 
-				" | Categoria: " + produto.getCategoria().getNome()));
-		
+
+		produtos.forEach(produto -> imprimirProduto(produto));
+
 	}
 
 	private static void buscarProdutoPorId() {
-		
+
 		EntityManager entityManager = JPAUtil.getEntityManager();
 		ProdutoDao produtoDao = new ProdutoDao(entityManager);
 
+		System.out.println("buscarPorId");
+
 		Produto produto = produtoDao.buscarPorId(1l);
-		System.out.println("Id: " + produto.getId() + 
-				" | Nome: " + produto.getNome() + 
-				" | Descrição: " + produto.getDescricao() + 
-				" | Preço: " + produto.getPreco() + 
-				" | Data Cadastro: " + produto.getDataCadastro() + 
-				" | Categoria: " + produto.getCategoria().getNome());
-		
-	}	
+
+		imprimirProduto(produto);
+
+	}
+
+	private static void buscarPorNome() {
+
+		EntityManager entityManager = JPAUtil.getEntityManager();
+		ProdutoDao produtoDao = new ProdutoDao(entityManager);
+
+		System.out.println("buscarPorNome");
+
+		List<Produto> produtos = produtoDao.buscarPorNome("Xiaomi Redmi 10");
+
+		produtos.forEach(produto -> imprimirProduto(produto));
+
+	}
+
+	private static void buscarPorNomeCategoria() {
+
+		EntityManager entityManager = JPAUtil.getEntityManager();
+		ProdutoDao produtoDao = new ProdutoDao(entityManager);
+
+		System.out.println("buscarPorNomeCategoria");
+
+		List<Produto> produtos = produtoDao.buscarPorNomeCategoria("CELULARES");
+
+		produtos.forEach(produto -> imprimirProduto(produto));
+
+	}
+
+	private static void imprimirProduto(Produto produto) {
+
+		System.out.println("Id: " + produto.getId() + " | Nome: " + produto.getNome() + " | Descrição: "
+				+ produto.getDescricao() + " | Preço: " + produto.getPreco() + " | Data Cadastro: "
+				+ produto.getDataCadastro() + " | Categoria: " + produto.getCategoria().getNome());
+
+	}
 
 }

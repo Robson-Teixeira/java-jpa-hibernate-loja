@@ -33,7 +33,26 @@ public class ProdutoDao {
 
 	public List<Produto> buscarTodos() {
 		String jpql = "SELECT p FROM Produto p"; // JPQL referencia a classe
-		return this.entityManager.createQuery(jpql, Produto.class).getResultList();
+		return this.entityManager
+				.createQuery(jpql, Produto.class)
+				.getResultList();
 	}
+	
+	public List<Produto> buscarPorNome(String nome) {
+		String jpql = "SELECT p FROM Produto p WHERE p.nome = :nome"; 
+		// Ou inserir ? no lugar de :nome e em setParameter definir índice x valor 
+		return this.entityManager
+				.createQuery(jpql, Produto.class)
+				.setParameter("nome", nome)
+				.getResultList();
+	}
+	
+	public List<Produto> buscarPorNomeCategoria(String nome) {
+		String jpql = "SELECT p FROM Produto p WHERE p.categoria.nome = :nome"; 
+		return this.entityManager
+				.createQuery(jpql, Produto.class)
+				.setParameter("nome", nome)
+				.getResultList();
+	}	
 
 }
