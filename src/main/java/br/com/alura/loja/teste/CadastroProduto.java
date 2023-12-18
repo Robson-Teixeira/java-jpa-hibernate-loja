@@ -1,6 +1,7 @@
 package br.com.alura.loja.teste;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 
@@ -14,6 +15,16 @@ public class CadastroProduto {
 
 	public static void main(String[] args) {
 
+		cadastrarProduto();
+		
+		buscarProdutoPorId();
+		
+		buscarProdutos();
+
+	}
+
+	private static void cadastrarProduto() {
+		
 		Categoria celulares = new Categoria("CELULARES");
 
 		Produto celular = new Produto("Xiaomi Redmi 10",
@@ -33,7 +44,37 @@ public class CadastroProduto {
 		produtoDao.cadastrar(celular);
 		entityManager.getTransaction().commit();
 		entityManager.close();
-
+		
 	}
+	
+	private static void buscarProdutos() {
+		
+		EntityManager entityManager = JPAUtil.getEntityManager();
+		ProdutoDao produtoDao = new ProdutoDao(entityManager);
+		
+		List<Produto> produtos = produtoDao.buscarTodos();
+		produtos.forEach(produto -> System.out.println("Id: " + produto.getId() + 
+				" | Nome: " + produto.getNome() + 
+				" | Descrição: " + produto.getDescricao() + 
+				" | Preço: " + produto.getPreco() + 
+				" | Data Cadastro: " + produto.getDataCadastro() + 
+				" | Categoria: " + produto.getCategoria().getNome()));
+		
+	}
+
+	private static void buscarProdutoPorId() {
+		
+		EntityManager entityManager = JPAUtil.getEntityManager();
+		ProdutoDao produtoDao = new ProdutoDao(entityManager);
+
+		Produto produto = produtoDao.buscarPorId(1l);
+		System.out.println("Id: " + produto.getId() + 
+				" | Nome: " + produto.getNome() + 
+				" | Descrição: " + produto.getDescricao() + 
+				" | Preço: " + produto.getPreco() + 
+				" | Data Cadastro: " + produto.getDataCadastro() + 
+				" | Categoria: " + produto.getCategoria().getNome());
+		
+	}	
 
 }
