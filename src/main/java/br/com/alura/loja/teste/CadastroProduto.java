@@ -24,6 +24,8 @@ public class CadastroProduto {
 		buscarPorNome();
 		
 		buscarPorNomeCategoria();
+		
+		buscarPrecoPorNome();
 
 	}
 
@@ -100,6 +102,17 @@ public class CadastroProduto {
 		List<Produto> produtos = produtoDao.buscarPorNomeCategoria("CELULARES");
 
 		produtos.forEach(produto -> imprimirProduto(produto));
+
+	}
+	
+	private static void buscarPrecoPorNome() {
+
+		EntityManager entityManager = JPAUtil.getEntityManager();
+		ProdutoDao produtoDao = new ProdutoDao(entityManager);
+
+		System.out.println("buscarPrecoPorNome");
+
+		System.out.println(produtoDao.buscarPrecoPorNome("Xiaomi Redmi 10"));
 
 	}
 
